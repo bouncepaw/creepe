@@ -1,0 +1,21 @@
+Reading Disclaimer 2018
+
+Hi, this is bouncepaw, author of this very program.
+
+I feel urge to inform you, my precious reader, that I like macros. They are so
+cute ain't they? Well, that's why I may use them. For instance:
+
+  times(3) { ... } // same as for(int t = 0; t < 3; t ++) { ... }
+
+I think it's more readable. Also, you'd better know that these things are same:
+
+  condition && func(); // same as if(condition) func();
+  condition || func(); // same as if(!condition) func();
+
+In this case readability reduces for sure, but I like how it looks with those
+extremely cute operators. I call them ANDy and VictORia. So should you.
+
+You may have a different opinion, but I don't care much. This is my code. If
+you have cool ideas of how to obfuscate code even more, feel free to get in
+touch with me: bouncepaw2@ya.ru.
+

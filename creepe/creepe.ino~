@@ -1,0 +1,99 @@
+#include <Ultrasonic.h>
+#include <Servo.h>
+#include <IRremote.h>
+
+// Pins
+const int irrecvPin = 13;
+const int echoPin = A1;
+const int trigPin = A0;
+const int speakerPin = 11; // not used
+
+// Objects
+Servo leftElbow;
+Servo leftShoulder;
+Servo rightElbow;
+Servo rightShoulder;
+
+decode_results results;
+IRrecv irrecv(irrecvPin);
+
+Ultrasonic eyes(trigPin, echoPin);
+
+// Variables
+int leftElbowAngle; // 15 .. 165
+int leftShoulderAngle; // 100 .. 15
+int rightElbowAngle; // 180 .. 50
+int rightShoulderAngle;
+unsigned int distance;
+// Modes: 0 - still, 1 - autonomous, 2 - remote controlled
+unsigned int mode = 1;
+
+#include "gait.h"
+#include "angle_set.h"
+
+void placeholder() {}
+void swearInFrench() {}
+void setup() {
+  Serial.begin(9600);
+
+  leftElbow.attach(10);
+  leftShoulder.attach(9);
+  rightElbow.attach(5);
+  rightShoulder.attach(6);
+
+  irrecv.enableIRIn();
+
+  for(int i = 0; i < 180; i++) {
+    rightShoulder.write(i);
+    delay(15);
+  }
+}
+
+void loop() {
+  handleIR();
+  look();
+}
+
+void look() {
+  distance = eyes.distanceRead();
+
+  if(distance > 10 && distance < 15) {
+    if(mode == 0) { // if robot is staying still
+      waveHand();
+    } else { // if robot is moving
+      swearInFrench();
+    }
+  }
+}
+
+void handleIR() {
+  if(irrecv.decode(&results)) {
+    Serial.print("Got IR signal: ");
+    Serial.println(results.value, HEX);
+
+    switch(results.value) {
+
+      // Rotate (left and right arrows)
+      case 0xFD28D7: rotateLeft(); break;
+      case 0xFD6897: rotateRight(); break;
+
+                     // Step (up and down arrows)
+      case 0xFD8877: stepForward(); break;
+      case 0xFD9867: stepBackward(); break;
+
+                     // Numbered actions (keys from 0 to 9)
+      case 0xFDB04F: mode = 0; break; // Robot stays still
+      case 0xFD00FF: mode = 1; break; // Robot explores world
+      case 0xFD807F: mode = 2; break; // Robot is controlled
+      case 0xFD40BF: placeholder(); break;
+      case 0xFD20DF: placeholder(); break;
+      case 0xFDA05F: placeholder(); break;
+      case 0xFD609F: placeholder(); break;
+      case 0xFD10EF: placeholder(); break;
+      case 0xFD906F: placeholder(); break;
+      case 0xFD50AF: placeholder(); break;
+    }
+
+    irrecv.resume();
+  }
+}
