@@ -14,6 +14,7 @@ void stayStraight() {
   tlrV(151, 25);
   tlH(90);
   trH(140);
+  tlrV(141, 35);
 
   Serial.println("Stood straight.");
 }
@@ -51,10 +52,9 @@ void rotateRight() {
   Serial.println("Rotated right.");
 }
 
-void quickStepForward() {
+void stepBackward() {
   tlrV(90, 90);
   setElbows(151, 25);
-  stayStraight();
   // stayStraight();
   // tlrV(0, 180);
   // leftElbow.write(151);
@@ -67,10 +67,4 @@ void stepForward() {
   rightElbow.write(180);
   stayStraight();
   Serial.println("Took a step forward.");
-}
-
-void attack() {
-  stayStraight();
-  tlrV(0, 180);
-  stayStraight();
 }
