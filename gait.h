@@ -1,7 +1,5 @@
-/*
- * Gait.h
- * Gait, movement and everything like that for Creepe
- */
+// Gait.h
+// Gait, movement and everything like that for Crêepe.
 #pragma once
 #include "Arduino.h"
 #include "angle_set.h"
@@ -9,6 +7,8 @@
 #define times(numberOfTimes) for(int t = 0; t < (numberOfTimes); t++)
 
 unsigned long lastBlind;
+
+// Variable names below do not need any clarification
 
 void stayStraight() {
   tlrV(151, 25);
@@ -18,6 +18,8 @@ void stayStraight() {
   Serial.println("Stood straight.");
 }
 
+// TODO: fix the bug when Crêepe instead of staying straight in the end stays
+// weirdly.
 void waveHand() {
   if(millis() - lastBlind < 2000) return;
   Serial.println("Waved hand.");

@@ -1,3 +1,5 @@
+// buzzer.h
+// Code used to make sounds.
 #pragma once
 #include "pitches.h"
 
@@ -5,6 +7,8 @@
 // over again?
 #define buzz(freq, duration) TimerFreeTone(buzzerPin, freq, duration)
 
+// Play a melody.
+// TODO: fix the bug when a melody does not play fully
 void play(int *melody, int *noteDurations) {
   for(int thisNote = 0;
       // `sizeof` returns size in bytes, so I have to divide it by byte size of one
@@ -23,6 +27,7 @@ void play(int *melody, int *noteDurations) {
   }
 }
 
+// Melody played when Crêepe is not in moving mode and sees anything,
 int melody_sayHello[] = {
   NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
 };
@@ -31,6 +36,7 @@ int noteDurations_sayHello[] = {
 };
 #define sayHello() play(melody_sayHello, noteDurations_sayHello)
 
+// Melody played when Crêepe starts,
 int melody_notifyStart[] = {
   NOTE_C2, NOTE_C4, NOTE_A2, 0, NOTE_C2
 };
@@ -39,6 +45,10 @@ int noteDurations_notifyStart[] = {
 };
 #define notifyStart() play(melody_notifyStart, noteDurations_notifyStart)
 
+// Melody played when Crêepe is in moving mode and sees anything.
+// TODO: make it more swearing-like
+// TODO: do not allow to swear more than one time at a time (one swearing for
+// step or kinda like that)
 long lastSwearingTime = millis();
 int melody_swearInFrench[] = {
   NOTE_B4, NOTE_B3, 0, NOTE_A3, NOTE_A5

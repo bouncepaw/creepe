@@ -1,6 +1,8 @@
-// Note putches, taken from Arduino website 
+// pitches.h
+// Note pitches, taken from Arduino website 
 // Originally made by Tom Igoe
 #pragma once
+
 #define NOTE_B0  31
 #define NOTE_C1  33
 #define NOTE_CS1 35

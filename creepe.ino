@@ -1,3 +1,5 @@
+// creepe.ino
+// Main file. See `README.md` for details
 #include <TimerFreeTone.h>
 #include <Ultrasonic.h>
 #include <Servo.h>
@@ -52,11 +54,13 @@ void loop() {
   look();
 }
 
+// Check if Crêepe sees anything
 void look() {
   if(eyes.distanceRead() > 10 && eyes.distanceRead() < 15)
     (robotIsInMovingMode ? swearInFrench() : waveHand());
 }
 
+// Handle controls
 void handleIR() {
   if(irrecv.decode(&results)) {
     Serial.print("Got IR signal: ");
