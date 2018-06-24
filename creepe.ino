@@ -44,6 +44,7 @@ void setup() {
   rightShoulder.attach(6);
 
   stayStraight();
+  notifyStart();
 }
 
 void loop() {
@@ -52,9 +53,8 @@ void loop() {
 }
 
 void look() {
-  eyes.distanceRead() > 10
-  && eyes.distanceRead() < 15
-  && (robotIsInMovingMode ? swearInFrench() : waveHand());
+  if(eyes.distanceRead() > 10 && eyes.distanceRead() < 15)
+    (robotIsInMovingMode ? swearInFrench() : waveHand());
 }
 
 void handleIR() {
@@ -65,17 +65,17 @@ void handleIR() {
     switch(results.value) {
 
       case 0xFD28D7: // left arrow
-        robotIsInMovingMode && rotateLeft();
+        if(robotIsInMovingMode) rotateLeft();
         break;
       case 0xFD6897: // right arrow
-        robotIsInMovingMode && rotateRight();
+        if(robotIsInMovingMode) rotateRight();
         break;
 
       case 0xFD8877: // up arrow
-        robotIsInMovingMode && stepForward();
+        if(robotIsInMovingMode) stepForward();
         break;
       case 0xFD9867: // down arrow
-        robotIsInMovingMode && stepBackward();
+        if(robotIsInMovingMode) stepBackward();
         break;
 
       case 0xFD00FF: // number 1

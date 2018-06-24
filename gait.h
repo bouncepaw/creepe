@@ -19,7 +19,7 @@ void stayStraight() {
 }
 
 void waveHand() {
-  (millis() - lastBlind < 2000) && return;
+  if(millis() - lastBlind < 2000) return;
   Serial.println("Waved hand.");
   sayHello();
   setRight(100, 100);
@@ -50,10 +50,12 @@ void rotateRight() {
 }
 
 void stepBackward() {
-  stayStraight();
-  tlrV(0, 180);
-  leftElbow.write(151);
-  rightElbow.write(25);
+  tlrV(90, 90);
+  setElbows(151, 25);
+  // stayStraight();
+  // tlrV(0, 180);
+  // leftElbow.write(151);
+  // rightElbow.write(25);
   Serial.println("Took a step backward.");
 }
 
